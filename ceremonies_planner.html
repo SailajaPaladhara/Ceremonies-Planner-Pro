@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celebrate - Events & Ceremonies Planning</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8B3A62;
+            --secondary: #2C1A47;
+            --accent: #D4AF37;
+            --light: #F5F1E8;
+            --text: #2D2D2D;
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            background: var(--light);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(44, 26, 71, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            color: white;
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--secondary);
+            padding: 0.9rem 2.5rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--secondary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+            margin: 1rem auto 0;
+        }
+
+        /* Ceremony Cards */
+        .ceremonies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .ceremony-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: var(--transition);
+            border-left: 4px solid var(--accent);
+        }
+
+        .ceremony-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .ceremony-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .ceremony-icon {
+            font-size: 2rem;
+            margin-right: 0.5rem;
+        }
+
+        .ceremony-content {
+            padding: 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .ceremony-card.expanded .ceremony-content {
+            max-height: 600px;
+        }
+
+        .ceremony-specs {
+            margin: 1rem 0;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .spec-icon {
+            color: var(--primary);
+            font-weight: 600;
+            margin-right: 0.5rem;
+            min-width: 20px;
+        }
+
+        /* Services/Features */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-box {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .service-box:hover {
+            transform: scale(1.05);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-box h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Budget Calculator */
+        .calculator-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .input-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-field label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .input-field input,
+        .input-field select {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .input-field input:focus,
+        .input-field select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(139, 58, 98, 0.1);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .checkbox-item input {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+
+        .checkbox-item label {
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .budget-result {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .budget-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .budget-breakdown {
+            text-align: left;
+            margin-top: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .breakdown-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 4px;
+        }
+
+        .breakdown-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .breakdown-value {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-top: 0.3rem;
+        }
+
+        /* Packages */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .package-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: var(--transition);
+            border-top: 4px solid var(--primary);
+        }
+
+        .package-card.featured {
+            transform: scale(1.05);
+            border-top-color: var(--accent);
+        }
+
+        .package-card.featured::before {
+            content: '⭐ POPULAR';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: var(--secondary);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .package-name {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .package-price {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .package-includes {
+            text-align: left;
+            margin: 1.5rem 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 1.5rem 0;
+        }
+
+        .package-includes li {
+            list-style: none;
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .package-includes li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .package-offer {
+            background: #FFF3E0;
+            color: #E65100;
+            padding: 0.8rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* About Section */
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-content h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .about-content p {
+            margin-bottom: 1rem;
+            opacity: 0.85;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .about-feature {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+
+        .about-feature-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .about-feature-text {
+            font-size: 0.9rem;
+        }
+
+        .about-image {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            height: 300px;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        /* FAQ Section */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 1rem;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .faq-question {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 1.5rem;
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--accent);
+            min-width: 30px;
+        }
+
+        .contact-details h4 {
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(139, 58, 98, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(139, 58, 98, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .about-container,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .package-card.featured {
+                transform: scale(1);
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .ceremony-card {
+            animation: fadeIn 0.5s ease;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">✨ CELEBRATE</div>
+        <ul>
+            <li><a onclick="scrollToSection('ceremonies')">Ceremonies</a></li>
+            <li><a onclick="scrollToSection('services')">Services</a></li>
+            <li><a onclick="scrollToSection('calculator')">Budget</a></li>
+            <li><a onclick="scrollToSection('packages')">Packages</a></li>
+            <li><a onclick="scrollToSection('about')">About</a></li>
+            <li><a onclick="scrollToSection('faq')">FAQ</a></li>
+            <li><a onclick="scrollToSection('contact')">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Celebrate Life's Special Moments</h1>
+        <p>Professional event planning for every milestone - from intimate ceremonies to grand celebrations</p>
+        <button class="cta-button" onclick="scrollToSection('ceremonies')">Explore Ceremonies</button>
+    </div>
+
+    <!-- Ceremonies Section -->
+    <section id="ceremonies">
+        <h2 class="section-title">Our Ceremonies & Events</h2>
+        <div class="ceremonies-grid">
+            <!-- Half Saree Ceremony -->
+            <div class="ceremony-card" onclick="toggleCeremony(this)">
+                <div class="ceremony-header">
+                    <span class="ceremony-icon">👗</span> Half Saree Ceremony
+                </div>
+                <div class="ceremony-content">
+                    <h4>Overview</h4>
+                    <p>A beautiful South Indian tradition marking a girl's transition to womanhood.</p>
+                    <div class="ceremony-specs">
+                        <div class="spec-item"><span class="spec-icon">📅</span> <strong>Duration:</strong> 2-4 hours</div>
+                        <div class="spec-item"><span class="spec-icon">👥</span> <strong>Guest Capacity:</strong> 50-200</div>
+                        <div class="spec-item"><span class="spec-icon">💰</span> <strong>Base Budget:</strong> ₹50,000 - ₹2,00,000</div>
+                        <div class="spec-item"><span class="spec-icon">🎯</span> <strong>Key Elements:</strong> Saree Tying, Blessings, Feast</div>
+                        <div class="spec-item"><span class="spec-icon">🎨</span> <strong>Traditional:</strong> Yes</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Baby Shower -->
+            <div class="ceremony-card" onclick="toggleCeremony(this)">
+                <div class="ceremony-header">
+                    <span class="ceremony-icon">🍼</span> Baby Shower
+                </div>
+                <div class="ceremony-content">
+                    <h4>Overview</h4>
+                    <p>A joyful celebration welcoming the soon-to-arrive baby with games and gifts.</p>
+                    <div class="ceremony-specs">
+                        <div class="spec-item"><span class="spec-icon">📅</span> <strong>Duration:</strong> 2-3 hours</div>
+                        <div class="spec-item"><span class="spec-icon">👥</span> <strong>Guest Capacity:</strong> 30-150</div>
+                        <div class="spec-item"><span class="spec-icon">💰</span> <strong>Base Budget:</strong> ₹20,000 - ₹1,50,000</div>
+                        <div class="spec-item"><span class="spec-icon">🎯</span> <strong>Key Elements:</strong> Games, Snacks, Decorations, Gifts</div>
+                        <div class="spec-item"><span class="spec-icon">🎨</span> <strong>Customizable:</strong> Yes</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Naming Ceremony -->
+            <div class="ceremony-card" onclick="toggleCeremony(this)">
+                <div class="ceremony-header">
+                    <span class="ceremony-icon">👶</span> Naming Ceremony
+                </div>
+                <div class="ceremony-content">
+                    <h4>Overview</h4>
+                    <p>A sacred ritual to formally introduce your newborn to family and community.</p>
+                    <div class="ceremony-specs">
+                        <div class="spec-item"><span class="spec-icon">📅</span> <strong>Duration:</strong> 1-3 hours</div>
+                        <div class="spec-item"><span class="spec-icon">👥</span> <strong>Guest Capacity:</strong> 20-100</div>
+                        <div class="spec-item"><span class="spec-icon">💰</span> <strong>Base Budget:</strong> ₹15,000 - ₹1,00,000</div>
+                        <div class="spec-item"><span class="spec-icon">🎯</span> <strong>Key Elements:</strong> Rituals, Prayers, Gathering</div>
+                        <div class="spec-item"><span class="spec-icon">🎨</span> <strong>Religious:</strong> Yes</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Maternity Ceremony -->
+            <div class="ceremony-card" onclick="toggleCeremony(this)">
+                <div class="ceremony-header">
+                    <span class="ceremony-icon">🤰</span> Maternity Ceremony
+                </div>
+                <div class="ceremony-content">
+                    <h4>Overview</h4>
+                    <p>Celebrate motherhood with traditional blessings and wellness activities.</p>
+                    <div class="ceremony-specs">
+                        <div class="spec-item"><span class="spec-icon">📅</span> <strong>Duration:</strong> 2-4 hours</div>
+                        <div class="spec-item"><span class="spec-icon">👥</span> <strong>Guest Capacity:</strong> 20-80</div>
+                        <div class="spec-item"><span class="spec-icon">💰</span> <strong>Base Budget:</strong> ₹25,000 - ₹1,25,000</div>
+                        <div class="spec-item"><span class="spec-icon">🎯</span> <strong>Key Elements:</strong> Rituals, Prayers, Comfort</div>
+                        <div class="spec-item"><span class="spec-icon">🎨</span> <strong>Focus:</strong> Mother's Wellness</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Birthday Celebration -->
+            <div class="ceremony-card" onclick="toggleCeremony(this)">
+                <div class="ceremony-header">
+                    <span class="ceremony-icon">🎂</span> Birthday Celebration
+                </div>
+                <div class="ceremony-content">
+                    <h4>Overview</h4>
+                    <p>Personalized birthday parties with themes, entertainment, and unforgettable memories.</p>
+                    <div class="ceremony-specs">
+                        <div class="spec-item"><span class="spec-icon">📅</span> <strong>Duration:</strong> 2-6 hours</div>
+                        <div class="spec-item"><span class="spec-icon">👥</span> <strong>Guest Capacity:</strong> 10-300</div>
+                        <div class="spec-item"><span class="spec-icon">💰</span> <strong>Base Budget:</strong> ₹10,000 - ₹5,00,000</div>
+                        <div class="spec-item"><span class="spec-icon">🎯</span> <strong>Key Elements:</strong> Cake, Games, Entertainment, Decor</div>
+                        <div class="spec-item"><span class="spec-icon">🎨</span> <strong>Themes:</strong> All Ages</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Funeral Ceremony -->
+            <div class="ceremony-card" onclick="toggleCeremony(this)">
+                <div class="ceremony-header">
+                    <span class="ceremony-icon">🙏</span> Funeral Ceremony
+                </div>
+                <div class="ceremony-content">
+                    <h4>Overview</h4>
+                    <p>Dignified arrangements to honor and remember your loved ones respectfully.</p>
+                    <div class="ceremony-specs">
+                        <div class="spec-item"><span class="spec-icon">📅</span> <strong>Duration:</strong> 2-4 hours</div>
+                        <div class="spec-item"><span class="spec-icon">👥</span> <strong>Guest Capacity:</strong> Flexible</div>
+                        <div class="spec-item"><span class="spec-icon">💰</span> <strong>Base Budget:</strong> ₹20,000 - ₹2,00,000</div>
+                        <div class="spec-item"><span class="spec-icon">🎯</span> <strong>Key Elements:</strong> Arrangements, Space, Rituals</div>
+                        <div class="spec-item"><span class="spec-icon">🎨</span> <strong>Support:</strong> 24/7</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Engagement -->
+            <div class="ceremony-card" onclick="toggleCeremony(this)">
+                <div class="ceremony-header">
+                    <span class="ceremony-icon">💍</span> Engagement Ceremony
+                </div>
+                <div class="ceremony-content">
+                    <h4>Overview</h4>
+                    <p>A memorable celebration marking the beginning of a lifelong journey together.</p>
+                    <div class="ceremony-specs">
+                        <div class="spec-item"><span class="spec-icon">📅</span> <strong>Duration:</strong> 3-5 hours</div>
+                        <div class="spec-item"><span class="spec-icon">👥</span> <strong>Guest Capacity:</strong> 50-300</div>
+                        <div class="spec-item"><span class="spec-icon">💰</span> <strong>Base Budget:</strong> ₹1,00,000 - ₹5,00,000</div>
+                        <div class="spec-item"><span class="spec-icon">🎯</span> <strong>Key Elements:</strong> Rituals, Reception, Entertainment</div>
+                        <div class="spec-item"><span class="spec-icon">🎨</span> <strong>Style:</strong> Grand or Intimate</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wedding -->
+            <div class="ceremony-card" onclick="toggleCeremony(this)">
+                <div class="ceremony-header">
+                    <span class="ceremony-icon">💒</span> Wedding Ceremony
+                </div>
+                <div class="ceremony-content">
+                    <h4>Overview</h4>
+                    <p>Your dream wedding with complete planning, coordination, and execution.</p>
+                    <div class="ceremony-specs">
+                        <div class="spec-item"><span class="spec-icon">📅</span> <strong>Duration:</strong> 2-3 days</div>
+                        <div class="spec-item"><span class="spec-icon">👥</span> <strong>Guest Capacity:</strong> 50-1000+</div>
+                        <div class="spec-item"><span class="spec-icon">💰</span> <strong>Base Budget:</strong> ₹2,00,000 - ₹50,00,000+</div>
+                        <div class="spec-item"><span class="spec-icon">🎯</span> <strong>Key Elements:</strong> All Rituals, Reception, Entertainment</div>
+                        <div class="spec-item"><span class="spec-icon">🎨</span> <strong>Customization:</strong> Complete</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Anniversary -->
+            <div class="ceremony-card" onclick="toggleCeremony(this)">
+                <div class="ceremony-header">
+                    <span class="ceremony-icon">💑</span> Anniversary Celebration
+                </div>
+                <div class="ceremony-content">
+                    <h4>Overview</h4>
+                    <p>Celebrate your love story with a special day filled with romance and joy.</p>
+                    <div class="ceremony-specs">
+                        <div class="spec-item"><span class="spec-icon">📅</span> <strong>Duration:</strong> 2-4 hours</div>
+                        <div class="spec-item"><span class="spec-icon">👥</span> <strong>Guest Capacity:</strong> 20-150</div>
+                        <div class="spec-item"><span class="spec-icon">💰</span> <strong>Base Budget:</strong> ₹25,000 - ₹2,50,000</div>
+                        <div class="spec-item"><span class="spec-icon">🎯</span> <strong>Key Elements:</strong> Dinner, Entertainment, Decor</div>
+                        <div class="spec-item"><span class="spec-icon">🎨</span> <strong>Ambiance:</strong> Romantic</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <h2 class="section-title">Our Services</h2>
+        <div class="services-grid">
+            <div class="service-box">
+                <div class="service-icon">🎨</div>
+                <h3>Decorations</h3>
+                <p>Stunning floral arrangements, lighting, themes, and ambiance design for your special event.</p>
+            </div>
+            <div class="service-box">
+                <div class="service-icon">🎭</div>
+                <h3>Entertainment</h3>
+                <p>Live music, DJs, dancers, comedians, magicians, and performers to keep guests engaged.</p>
+            </div>
+            <div class="service-box">
+                <div class="service-icon">🎵</div>
+                <h3>Music & Dance</h3>
+                <p>Professional singers, band performances, and choreography for traditional and modern celebrations.</p>
+            </div>
+            <div class="service-box">
+                <div class="service-icon">🎮</div>
+                <h3>Games & Activities</h3>
+                <p>Interactive games, fun activities, contests, and engagement programs for all ages.</p>
+            </div>
+            <div class="service-box">
+                <div class="service-icon">🍽️</div>
+                <h3>Catering & Food</h3>
+                <p>Diverse cuisine options - vegetarian, non-vegetarian, regional specialties, and customized menus.</p>
+            </div>
+            <div class="service-box">
+                <div class="service-icon">📋</div>
+                <h3>Complete Planning</h3>
+                <p>End-to-end event management from concept to execution with professional coordination.</p>
+            </div>
+            <div class="service-box">
+                <div class="service-icon">🎬</div>
+                <h3>Photography & Videography</h3>
+                <p>Professional photo and video coverage to capture every precious moment.</p>
+            </div>
+            <div class="service-box">
+                <div class="service-icon">🎪</div>
+                <h3>Venue Management</h3>
+                <p>Venue selection, setup, arrangement, and coordination for the perfect setting.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Budget Calculator -->
+    <section id="calculator">
+        <h2 class="section-title">Budget Calculator</h2>
+        <div class="calculator-section">
+            <p style="margin-bottom: 2rem; text-align: center; font-size: 1.1rem;">
+                Customize your event and get an instant budget estimate
+            </p>
+            
+            <div class="input-group">
+                <div class="input-field">
+                    <label for="ceremony-type">Select Ceremony Type</label>
+                    <select id="ceremony-type" onchange="calculateBudget()">
+                        <option value="baby-shower">Baby Shower (₹20,000 base)</option>
+                        <option value="naming">Naming Ceremony (₹15,000 base)</option>
+                        <option value="half-saree">Half Saree (₹50,000 base)</option>
+                        <option value="maternity">Maternity (₹25,000 base)</option>
+                        <option value="birthday">Birthday (₹10,000 base)</option>
+                        <option value="engagement">Engagement (₹1,00,000 base)</option>
+                        <option value="wedding">Wedding (₹2,00,000 base)</option>
+                        <option value="anniversary">Anniversary (₹25,000 base)</option>
+                    </select>
+                </div>
+                <div class="input-field">
+                    <label for="guest-count">Expected Guests</label>
+                    <input type="number" id="guest-count" value="100" min="10" max="1000" onchange="calculateBudget()">
+                </div>
+                <div class="input-field">
+                    <label for="duration">Duration (Hours)</label>
+                    <input type="number" id="duration" value="3" min="1" max="24" onchange="calculateBudget()">
+                </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+                <label style="font-weight: 600; color: var(--primary); display: block; margin-bottom: 1rem;">
+                    Select Services (₹ per person)
+                </label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="decor" value="decoration" onchange="calculateBudget()">
+                        <label for="decor">Decoration (₹3,000)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="catering" value="catering" onchange="calculateBudget()">
+                        <label for="catering">Catering (₹500-1000)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="music" value="music" onchange="calculateBudget()">
+                        <label for="music">Music/DJ (₹2,000)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="games" value="games" onchange="calculateBudget()">
+                        <label for="games">Games/Activities (₹500)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="photography" value="photography" onchange="calculateBudget()">
+                        <label for="photography">Photography (₹10,000 flat)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="videography" value="videography" onchange="calculateBudget()">
+                        <label for="videography">Videography (₹15,000 flat)</label>
+                    </div>
+                </div>
+            </div>
+
+            <button class="cta-button" onclick="calculateBudget()" style="width: 100%;">Calculate Budget</button>
+
+            <div class="budget-result" id="budget-result" style="display: none;">
+                <div style="font-size: 1rem; margin-bottom: 1rem;">Estimated Total Budget</div>
+                <div class="budget-amount" id="total-budget">₹0</div>
+                <div class="budget-breakdown">
+                    <div class="breakdown-item">
+                        <div class="breakdown-label">Base Cost</div>
+                        <div class="breakdown-value" id="breakdown-base">₹0</div>
+                    </div>
+                    <div class="breakdown-item">
+                        <div class="breakdown-label">Services</div>
+                        <div class="breakdown-value" id="breakdown-services">₹0</div>
+                    </div>
+                    <div class="breakdown-item">
+                        <div class="breakdown-label">Per Guest Charges</div>
+                        <div class="breakdown-value" id="breakdown-guests">₹0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section id="packages">
+        <h2 class="section-title">Our Packages & Offers</h2>
+        <div class="packages-grid">
+            <div class="package-card">
+                <div class="package-name">💝 Starter</div>
+                <div class="package-price">₹50,000</div>
+                <p style="font-size: 0.9rem; color: #666; margin-bottom: 1rem;">Perfect for small gatherings</p>
+                <div class="package-includes">
+                    <ul>
+                        <li>Venue Coordination</li>
+                        <li>Basic Decoration</li>
+                        <li>Simple Catering</li>
+                        <li>Up to 50 Guests</li>
+                        <li>2-3 Hour Duration</li>
+                    </ul>
+                </div>
+                <div class="package-offer">🎉 20% OFF for first-time bookings</div>
+                <button class="cta-button" style="width: 100%;">Choose Plan</button>
+            </div>
+
+            <div class="package-card featured">
+                <div class="package-name">✨ Premium</div>
+                <div class="package-price">₹1,50,000</div>
+                <p style="font-size: 0.9rem; color: #666; margin-bottom: 1rem;">Most popular choice</p>
+                <div class="package-includes">
+                    <ul>
+                        <li>Premium Venue</li>
+                        <li>Elaborate Decoration</li>
+                        <li>Gourmet Catering</li>
+                        <li>DJ & Entertainment</li>
+                        <li>Up to 200 Guests</li>
+                        <li>4-5 Hour Duration</li>
+                        <li>Professional Photography</li>
+                    </ul>
+                </div>
+                <div class="package-offer">🎁 Free videography + 15% discount</div>
+                <button class="cta-button" style="width: 100%; background: var(--accent); color: var(--secondary);">Choose Plan</button>
+            </div>
+
+            <div class="package-card">
+                <div class="package-name">👑 Luxury</div>
+                <div class="package-price">₹3,50,000</div>
+                <p style="font-size: 0.9rem; color: #666; margin-bottom: 1rem;">For grand celebrations</p>
+                <div class="package-includes">
+                    <ul>
+                        <li>Premium Luxury Venue</li>
+                        <li>Grand Decoration</li>
+                        <li>Multi-Cuisine Catering</li>
+                        <li>Live Band & DJ</li>
+                        <li>Up to 500 Guests</li>
+                        <li>Full Day Coverage</li>
+                        <li>Pro Photography & Videography</li>
+                        <li>Event Coordinator</li>
+                    </ul>
+                </div>
+                <div class="package-offer">💎 Complimentary décor upgrade</div>
+                <button class="cta-button" style="width: 100%;">Choose Plan</button>
+            </div>
+        </div>
+
+        <div style="background: #FFF3E0; padding: 2rem; border-radius: var(--border-radius); margin-top: 3rem; text-align: center;">
+            <h3 style="color: #E65100; margin-bottom: 1rem;">🎊 Limited Time Offers!</h3>
+            <p style="margin-bottom: 1rem; color: #666;">
+                <strong>Book Now & Get:</strong> 10% off entire package + Complimentary cake delivery + Free games coordination
+            </p>
+            <p style="color: #E65100; font-size: 0.9rem;">Valid until end of month. Terms & conditions apply.</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About Celebrate</h2>
+        <div class="about-container">
+            <div class="about-content">
+                <h3>Creating Unforgettable Memories</h3>
+                <p>
+                    At Celebrate, we believe every occasion deserves to be special. With over a decade of experience in event planning and coordination, we transform your vision into reality.
+                </p>
+                <p>
+                    Our team of dedicated professionals understands the cultural significance and emotional importance of each ceremony. We handle every detail - big and small - ensuring your event is executed flawlessly.
+                </p>
+                <p>
+                    Whether it's an intimate family gathering or a grand celebration, we're committed to making your special day truly memorable.
+                </p>
+                <div class="about-features">
+                    <div class="about-feature">
+                        <div class="about-feature-number">500+</div>
+                        <div class="about-feature-text">Events Planned</div>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-number">10+</div>
+                        <div class="about-feature-text">Years Experience</div>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-number">98%</div>
+                        <div class="about-feature-text">Client Satisfaction</div>
+                    </div>
+                    <div class="about-feature">
+                        <div class="about-feature-number">24/7</div>
+                        <div class="about-feature-text">Support Available</div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image">🎉</div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How far in advance should I book your services?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    We recommend booking at least 2-3 months in advance for standard events and 6-12 months for grand celebrations like weddings. However, we also handle last-minute bookings based on availability. Contact us for urgent requests.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Can I customize the packages?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Absolutely! Our packages are fully customizable. You can add or remove services, adjust guest counts, and tailor every aspect to match your vision and budget. Contact our team to create a personalized package.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What food options are available?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    We offer extensive food options including vegetarian, non-vegetarian, regional cuisines, international dishes, and specialty dietary accommodations. Our partner chefs create customized menus based on your preferences and cultural traditions.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Do you provide decoration and setup?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Yes! We provide complete decoration services including floral arrangements, lighting, theme implementation, and venue setup. Our creative team designs decorations based on your ceremony type and personal preferences.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What happens if weather disrupts our outdoor event?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    We have contingency plans for all outdoor events. We can arrange covered spaces, indoor venues, or tent setups. Our team constantly monitors weather and ensures your event proceeds smoothly regardless of conditions.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Is there a refund policy?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    We have a flexible cancellation policy. Cancellations 60+ days before the event receive a full refund. Cancellations 30-60 days receive 50% refund, and within 30 days may have limited refund options. Full details are in our terms and conditions.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Do you handle all religious and cultural traditions?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Yes! We have experience with diverse traditions and cultures. Our team is trained in various ceremonies and customs. We respect and uphold the significance of your traditions while ensuring a beautiful celebration.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Can you accommodate guest dietary restrictions?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Absolutely! We accommodate all dietary requirements including vegetarian, vegan, gluten-free, halal, kosher, and allergy-specific menus. Just inform us in advance, and our chefs will create delicious options for everyone.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3 style="color: var(--primary); margin-bottom: 2rem;">Contact Information</h3>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-details">
+                        <h4>Address</h4>
+                        <p>Celebrate Events & Ceremonies<br>Premium Event Plaza<br>Rasapūdipalem, Andhra Pradesh<br>India - 517591</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <div class="contact-details">
+                        <h4>Phone</h4>
+                        <p><strong>Main:</strong> +91-XXXX-XXXX-XX<br>
+                        <strong>Mobile:</strong> +91-XXXX-XXXX-XX<br>
+                        <strong>WhatsApp:</strong> +91-XXXX-XXXX-XX</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-details">
+                        <h4>Email</h4>
+                        <p><strong>General:</strong> info@celebrate.com<br>
+                        <strong>Bookings:</strong> bookings@celebrate.com<br>
+                        <strong>Support:</strong> support@celebrate.com</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">🕐</div>
+                    <div class="contact-details">
+                        <h4>Business Hours</h4>
+                        <p><strong>Monday - Friday:</strong> 9:00 AM - 8:00 PM<br>
+                        <strong>Saturday - Sunday:</strong> 10:00 AM - 6:00 PM<br>
+                        <strong>Emergency:</strong> 24/7 Available</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">🌐</div>
+                    <div class="contact-details">
+                        <h4>Follow Us</h4>
+                        <p>Facebook | Instagram | Twitter | LinkedIn</p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 style="color: var(--primary); margin-bottom: 2rem;">Send Us A Message</h3>
+                <form onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="event-type">Event Type *</label>
+                        <select id="event-type" name="event-type" required style="padding: 0.8rem; border: 1px solid #ddd; border-radius: var(--border-radius); font-family: inherit; width: 100%;">
+                            <option value="">Select an event type</option>
+                            <option value="baby-shower">Baby Shower</option>
+                            <option value="naming">Naming Ceremony</option>
+                            <option value="half-saree">Half Saree Ceremony</option>
+                            <option value="maternity">Maternity Ceremony</option>
+                            <option value="birthday">Birthday</option>
+                            <option value="engagement">Engagement</option>
+                            <option value="wedding">Wedding</option>
+                            <option value="anniversary">Anniversary</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Preferred Event Date *</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="guests">Expected Guests</label>
+                        <input type="number" id="guests" name="guests" min="10" value="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Tell Us About Your Event *</label>
+                        <textarea id="message" name="message" required placeholder="Share your ideas, preferences, and requirements..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Send Inquiry</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Celebrate Events & Ceremonies. All rights reserved.</p>
+        <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">Creating magical moments, one celebration at a time.</p>
+    </footer>
+
+    <script>
+        function toggleCeremony(element) {
+            element.classList.toggle('expanded');
+        }
+
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            faqItem.classList.toggle('active');
+        }
+
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function calculateBudget() {
+            const ceremonyType = document.getElementById('ceremony-type').value;
+            const guestCount = parseInt(document.getElementById('guest-count').value) || 100;
+            
+            const baseCosts = {
+                'baby-shower': 20000,
+                'naming': 15000,
+                'half-saree': 50000,
+                'maternity': 25000,
+                'birthday': 10000,
+                'engagement': 100000,
+                'wedding': 200000,
+                'anniversary': 25000
+            };
+
+            const serviceCosts = {
+                'decoration': 3000,
+                'catering': 750,
+                'music': 2000,
+                'games': 500,
+                'photography': 10000,
+                'videography': 15000
+            };
+
+            let baseCost = baseCosts[ceremonyType] || 20000;
+            let servicesTotal = 0;
+            let guestCharges = 0;
+
+            // Calculate services cost
+            const services = ['decor', 'catering', 'music', 'games', 'photography', 'videography'];
+            services.forEach(service => {
+                const checkbox = document.getElementById(service);
+                if (checkbox && checkbox.checked) {
+                    const serviceKey = checkbox.value;
+                    const cost = serviceCosts[serviceKey] || 0;
+                    
+                    if (serviceKey === 'photography' || serviceKey === 'videography') {
+                        servicesTotal += cost;
+                    } else {
+                        guestCharges += cost * guestCount;
+                    }
+                }
+            });
+
+            const totalBudget = baseCost + servicesTotal + guestCharges;
+
+            document.getElementById('budget-result').style.display = 'block';
+            document.getElementById('total-budget').textContent = '₹' + totalBudget.toLocaleString('en-IN');
+            document.getElementById('breakdown-base').textContent = '₹' + baseCost.toLocaleString('en-IN');
+            document.getElementById('breakdown-services').textContent = '₹' + (servicesTotal).toLocaleString('en-IN');
+            document.getElementById('breakdown-guests').textContent = '₹' + guestCharges.toLocaleString('en-IN');
+
+            return totalBudget;
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const eventType = document.getElementById('event-type').value;
+            const date = document.getElementById('date').value;
+            const guests = document.getElementById('guests').value;
+            const message = document.getElementById('message').value;
+
+            const emailBody = `
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Event Type: ${eventType}
+Preferred Date: ${date}
+Expected Guests: ${guests}
+Message: ${message}
+            `;
+
+            console.log('Form submitted:', emailBody);
+            
+            alert('Thank you for your inquiry! We will contact you soon at ' + email + '\n\nWe look forward to creating your perfect celebration!');
+            
+            document.querySelector('form').reset();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add smooth scrolling
+            document.querySelectorAll('a[onclick*="scrollToSection"]').forEach(link => {
+                link.style.cursor = 'pointer';
+            });
+        });
+    </script>
+</body>
+</html>
